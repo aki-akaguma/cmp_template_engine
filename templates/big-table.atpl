@@ -1,0 +1,5 @@
+# The Big Table
+{% for row in table %}
+{% for col in row %}| {{ col }} {% endfor %}|
+{%- endfor %}
+{% let a = "" %}

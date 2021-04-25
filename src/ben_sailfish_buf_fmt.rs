@@ -1,10 +1,11 @@
-use std::io::Write;
+use std::fmt::Write;
 
 #[allow(unused_imports)]
 use super::{Team, Teams, TeamSo,TeamsSo};
+use sailfish::runtime::Buffer;
 
-pub fn do_te_std_io_write_big_table(a_table: &[Vec<usize>]) -> anyhow::Result<String> {
-    let mut output = Vec::with_capacity(13000);
+pub fn do_te_sailfish_buf_fmt_big_table(a_table: &[Vec<usize>]) -> anyhow::Result<String> {
+    let mut output = Buffer::with_capacity(13000);
     write!(
         &mut output,
         "# The Big Table
@@ -21,14 +22,12 @@ pub fn do_te_std_io_write_big_table(a_table: &[Vec<usize>]) -> anyhow::Result<St
 "
         )?;
     }
-    //let s = String::from_utf8(output)?;
-    let s = unsafe { String::from_utf8_unchecked(output) };
     //
-    Ok(s)
+    Ok(output.into_string())
 }
 
-pub fn do_te_std_io_write_teams(a_teams: &Teams) -> anyhow::Result<String> {
-    let mut output = Vec::with_capacity(300);
+pub fn do_te_sailfish_buf_fmt_teams(a_teams: &Teams) -> anyhow::Result<String> {
+    let mut output = Buffer::with_capacity(300);
     write!(
         &mut output,
         "# CSL {year}
@@ -49,14 +48,12 @@ pub fn do_te_std_io_write_teams(a_teams: &Teams) -> anyhow::Result<String> {
             score = team.score
         )?;
     }
-    //let s = String::from_utf8(output)?;
-    let s = unsafe { String::from_utf8_unchecked(output) };
     //
-    Ok(s)
+    Ok(output.into_string())
 }
 
-pub fn do_te_std_io_write_teams_so(a_teams: &TeamsSo) -> anyhow::Result<String> {
-    let mut output = Vec::with_capacity(300);
+pub fn do_te_sailfish_buf_fmt_teams_so(a_teams: &TeamsSo) -> anyhow::Result<String> {
+    let mut output = Buffer::with_capacity(300);
     write!(
         &mut output,
         "# CSL
@@ -74,8 +71,6 @@ pub fn do_te_std_io_write_teams_so(a_teams: &TeamsSo) -> anyhow::Result<String> 
             name = team.name,
         )?;
     }
-    //let s = String::from_utf8(output)?;
-    let s = unsafe { String::from_utf8_unchecked(output) };
     //
-    Ok(s)
+    Ok(output.into_string())
 }

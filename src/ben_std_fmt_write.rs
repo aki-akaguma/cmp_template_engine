@@ -1,7 +1,7 @@
 use std::fmt::Write;
 
 #[allow(unused_imports)]
-use super::{Team, Teams};
+use super::{Team, Teams, TeamSo,TeamsSo};
 
 pub fn do_te_std_fmt_write_big_table(a_table: &[Vec<usize>]) -> anyhow::Result<String> {
     let mut output = String::with_capacity(13000);
@@ -45,6 +45,29 @@ pub fn do_te_std_fmt_write_teams(a_teams: &Teams) -> anyhow::Result<String> {
             num = i + 1,
             name = team.name,
             score = team.score
+        )?;
+    }
+    //
+    Ok(output)
+}
+
+pub fn do_te_std_fmt_write_teams_so(a_teams: &TeamsSo) -> anyhow::Result<String> {
+    let mut output = String::with_capacity(300);
+    write!(
+        &mut output,
+        "# CSL
+=================
+
+| name             |
+|:-----------------|
+",
+    )?;
+    for team in a_teams.teams.iter() {
+        write!(
+            &mut output,
+            "| {name} |
+",
+            name = team.name,
         )?;
     }
     //

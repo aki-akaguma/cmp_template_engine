@@ -1,7 +1,7 @@
 //use std::fmt::Write;
 
 #[allow(unused_imports)]
-use super::{Team, Teams};
+use super::{Team, Teams, TeamSo,TeamsSo};
 use sailfish::runtime::Buffer;
 
 pub fn do_te_sailfish_buf_big_table(a_table: &[Vec<usize>]) -> anyhow::Result<String> {
@@ -50,6 +50,33 @@ pub fn do_te_sailfish_buf_teams(a_teams: &Teams) -> anyhow::Result<String> {
         buf += &team.name;
         buf += " | ";
         let _ = itoap::fmt(&mut buf, team.score);
+        buf += " |\n";
+    }
+    //
+    Ok(buf.into_string())
+}
+
+pub fn do_te_sailfish_buf_teams_so(a_teams: &TeamsSo) -> anyhow::Result<String> {
+    let mut buf = Buffer::with_capacity(300);
+    //write!(&mut buf, "# CSL {year}", year = a_teams.year)?;
+    buf += "# CSL
+=================
+
+| name             |
+|:-----------------|
+";
+    for team in a_teams.teams.iter() {
+        /*
+        write!(
+            &mut buf,
+            "| {num} | {name} | {score} |\n",
+            num = i + 1,
+            name = team.name,
+            score = team.score
+        )?;
+        */
+        buf += "| ";
+        buf += &team.name;
         buf += " |\n";
     }
     //

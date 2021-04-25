@@ -1,6 +1,11 @@
-use super::Teams;
+use super::{Teams,TeamsSo};
 use serde::Serialize;
 use tinytemplate::TinyTemplate;
+
+#[derive(Serialize)]
+struct BigTableTemplate<'a> {
+    table: &'a [Vec<usize>],
+}
 
 const TEMPL_BIG_TABLE: &str = "# The Big Table
 {{ for row in table }}
@@ -24,6 +29,19 @@ pub fn do_te_tinytempl_big_table<'a>(
         Ok(s) => Ok(s),
         Err(err) => Err(anyhow!("{}", err)),
     }
+}
+
+#[derive(Serialize)]
+struct TeamsTemplate<'a> {
+    year: u16,
+    teams: &'a [TeamTemplate<'a>],
+}
+
+#[derive(Serialize)]
+pub struct TeamTemplate<'a> {
+    pub num: usize,
+    pub name: &'a str,
+    pub score: u8,
 }
 
 const TEMPL_TEAMS: &str = "# CSL {year}
@@ -62,19 +80,43 @@ pub fn do_te_tinytempl_teams<'a>(tt: &TinyTemplate<'a>, a_teams: &Teams) -> anyh
 }
 
 #[derive(Serialize)]
-struct BigTableTemplate<'a> {
-    table: &'a [Vec<usize>],
+struct TeamsSoTemplate<'a> {
+    teams: &'a [TeamSoTemplate<'a>],
 }
 
 #[derive(Serialize)]
-struct TeamsTemplate<'a> {
-    year: u16,
-    teams: &'a [TeamTemplate<'a>],
-}
-
-#[derive(Serialize)]
-pub struct TeamTemplate<'a> {
-    pub num: usize,
+pub struct TeamSoTemplate<'a> {
     pub name: &'a str,
-    pub score: u8,
+}
+
+const TEMPL_TEAMS_SO: &str = "# CSL
+=================
+
+| name             |
+|:-----------------|
+{{ for team in teams }}| {team.name} |
+{{ endfor }}";
+
+pub fn create_templ_teams_so<'a>() -> anyhow::Result<TinyTemplate<'a>> {
+    let mut tt = TinyTemplate::new();
+    tt.add_template("one", TEMPL_TEAMS_SO)?;
+    Ok(tt)
+}
+
+pub fn do_te_tinytempl_teams_so<'a>(tt: &TinyTemplate<'a>, a_teams: &TeamsSo) -> anyhow::Result<String> {
+    //
+    let mut v_teams = Vec::new();
+    for team in a_teams.teams.iter() {
+        v_teams.push(TeamSoTemplate {
+            name: &team.name,
+        });
+    }
+    let context = TeamsSoTemplate {
+        teams: &v_teams,
+    };
+    //
+    match tt.render("one", &context) {
+        Ok(s) => Ok(s),
+        Err(err) => Err(anyhow!("{}", err)),
+    }
 }

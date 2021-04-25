@@ -25,6 +25,10 @@ fn process_te_sailfish_buf_big_table(a_table: &[Vec<usize>]) -> anyhow::Result<S
     cmp_template_engine::do_te_sailfish_buf_big_table(a_table)
 }
 
+fn process_te_sailfish_buf_fmt_big_table(a_table: &[Vec<usize>]) -> anyhow::Result<String> {
+    cmp_template_engine::do_te_sailfish_buf_fmt_big_table(a_table)
+}
+
 fn process_te_tinytempl_big_table<'a>(
     tinytemple: &TinyTemplate<'a>,
     a_table: &[Vec<usize>],
@@ -96,6 +100,15 @@ fn criterion_benchmark(c: &mut Criterion) {
             unreachable!();
         }
     }
+    match process_te_sailfish_buf_fmt_big_table(criterion::black_box(&a_teams)) {
+        Ok(s) => {
+            assert_eq!(s, res_s);
+        }
+        Err(err) => {
+            eprintln!("{}", err);
+            unreachable!();
+        }
+    }
     match process_te_tinytempl_big_table(&tinytemple, criterion::black_box(&a_teams)) {
         Ok(s) => {
             assert_eq!(s, res_s);
@@ -126,14 +139,19 @@ fn criterion_benchmark(c: &mut Criterion) {
             let _r = process_te_askama_big_table(criterion::black_box(&a_teams));
         })
     });
-    c.bench_function("sailfish_bigtable", |b| {
+    c.bench_function("sailf_bigtable", |b| {
         b.iter(|| {
             let _r = process_te_sailfish_big_table(criterion::black_box(&a_teams));
         })
     });
-    c.bench_function("sailfish_buf_bigtable", |b| {
+    c.bench_function("sailf_buf_bigtable", |b| {
         b.iter(|| {
             let _r = process_te_sailfish_buf_big_table(criterion::black_box(&a_teams));
+        })
+    });
+    c.bench_function("sailf_buf_fmt_bigtable", |b| {
+        b.iter(|| {
+            let _r = process_te_sailfish_buf_fmt_big_table(criterion::black_box(&a_teams));
         })
     });
     c.bench_function("tinytempl_bigtable", |b| {

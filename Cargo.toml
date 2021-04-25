@@ -33,6 +33,11 @@ path = "benches/bench-teams.rs"
 harness = false
 
 [[bench]]
+name = "bench-teams-so"
+path = "benches/bench-teams-so.rs"
+harness = false
+
+[[bench]]
 name = "bench-big-table"
 path = "benches/bench-big-table.rs"
 harness = false

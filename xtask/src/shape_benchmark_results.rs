@@ -4,25 +4,34 @@ use std::io::BufRead;
 pub fn run(_program: &str, _args: &[&str]) -> anyhow::Result<()> {
     let bench_vec_11 = get_bench("z.bench.1.log")?;
     let bench_vec_21 = get_bench("z.bench.2.log")?;
+    let bench_vec_31 = get_bench("z.bench.3.log")?;
     //
     let mut bench_vec_12 = get_bench("z.musl.bench.1.log")?;
     let mut bench_vec_22 = get_bench("z.musl.bench.2.log")?;
+    let mut bench_vec_32 = get_bench("z.musl.bench.3.log")?;
     bench_vec_12.sort_by(|a, b| a.name.cmp(&b.name));
     bench_vec_22.sort_by(|a, b| a.name.cmp(&b.name));
+    bench_vec_32.sort_by(|a, b| a.name.cmp(&b.name));
     //
     let mut bench_vec_13 = get_bench("z.arm64.musl.bench.1.log")?;
     let mut bench_vec_23 = get_bench("z.arm64.musl.bench.2.log")?;
+    let mut bench_vec_33 = get_bench("z.arm64.musl.bench.3.log")?;
     bench_vec_13.sort_by(|a, b| a.name.cmp(&b.name));
     bench_vec_23.sort_by(|a, b| a.name.cmp(&b.name));
+    bench_vec_33.sort_by(|a, b| a.name.cmp(&b.name));
     //
     if bench_vec_13.is_empty() {
         output2(bench_vec_11, bench_vec_12)?;
         println!("");
         output2(bench_vec_21, bench_vec_22)?;
+        println!("");
+        output2(bench_vec_31, bench_vec_32)?;
     } else {
         output3(bench_vec_11, bench_vec_12, bench_vec_13)?;
         println!("");
         output3(bench_vec_21, bench_vec_22, bench_vec_23)?;
+        println!("");
+        output3(bench_vec_31, bench_vec_32, bench_vec_33)?;
     }
     //
     Ok(())

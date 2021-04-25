@@ -26,6 +26,10 @@ fn process_te_sailfish_buf_teams(a_teams: &Teams) -> anyhow::Result<String> {
     cmp_template_engine::do_te_sailfish_buf_teams(a_teams)
 }
 
+fn process_te_sailfish_buf_fmt_teams(a_teams: &Teams) -> anyhow::Result<String> {
+    cmp_template_engine::do_te_sailfish_buf_fmt_teams(a_teams)
+}
+
 fn process_te_tinytempl_teams<'a>(
     tinytemple: &TinyTemplate<'a>,
     a_teams: &Teams,
@@ -97,6 +101,15 @@ fn criterion_benchmark(c: &mut Criterion) {
             unreachable!();
         }
     }
+    match process_te_sailfish_buf_fmt_teams(criterion::black_box(&a_teams)) {
+        Ok(s) => {
+            assert_eq!(s, res_s);
+        }
+        Err(err) => {
+            eprintln!("{}", err);
+            unreachable!();
+        }
+    }
     match process_te_tinytempl_teams(&tinytemple, criterion::black_box(&a_teams)) {
         Ok(s) => {
             assert_eq!(s, res_s);
@@ -127,14 +140,19 @@ fn criterion_benchmark(c: &mut Criterion) {
             let _r = process_te_askama_teams(criterion::black_box(&a_teams));
         })
     });
-    c.bench_function("sailfish_teams", |b| {
+    c.bench_function("sailf_teams", |b| {
         b.iter(|| {
             let _r = process_te_sailfish_teams(criterion::black_box(&a_teams));
         })
     });
-    c.bench_function("sailfish_buf_teams", |b| {
+    c.bench_function("sailf_buf_teams", |b| {
         b.iter(|| {
             let _r = process_te_sailfish_buf_teams(criterion::black_box(&a_teams));
+        })
+    });
+    c.bench_function("sailf_buf_fmt_teams", |b| {
+        b.iter(|| {
+            let _r = process_te_sailfish_buf_fmt_teams(criterion::black_box(&a_teams));
         })
     });
     c.bench_function("tinytempl_teams", |b| {

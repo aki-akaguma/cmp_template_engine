@@ -1,4 +1,4 @@
-use cmp_template_engine::{Team, Teams};
+use cmp_template_engine::{Team, Teams, TeamSo, TeamsSo};
 
 #[allow(dead_code)]
 pub fn create_data_big_table() -> (Vec<Vec<usize>>, String) {
@@ -58,6 +58,37 @@ pub fn create_data_teams() -> (Teams, String) {
 | 2 | Beijing | 27 |
 | 3 | Guangzhou | 22 |
 | 4 | Shandong | 12 |
+"#;
+    (teams, res.into())
+}
+
+#[allow(dead_code)]
+pub fn create_data_teams_so() -> (TeamsSo, String) {
+    let teams = TeamsSo {
+        teams: vec![
+            TeamSo {
+                name: "Jiangsu".into(),
+            },
+            TeamSo {
+                name: "Beijing".into(),
+            },
+            TeamSo {
+                name: "Guangzhou".into(),
+            },
+            TeamSo {
+                name: "Shandong".into(),
+            },
+        ],
+    };
+    let res = r#"# CSL
+=================
+
+| name             |
+|:-----------------|
+| Jiangsu |
+| Beijing |
+| Guangzhou |
+| Shandong |
 "#;
     (teams, res.into())
 }

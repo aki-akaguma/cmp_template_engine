@@ -1,6 +1,6 @@
 [package]
 name = "cmp_template_engine"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["aki <aki.akaguma@hotmail.com>"]
 edition = "2018"
 description = "research: compare template-engine for non-html"
@@ -20,6 +20,7 @@ serde = { version = "1.0", features = ["derive"] }
 itoap = "1.0"
 
 [dev-dependencies]
+memx-cdy = "0.1"
 criterion = "0.3"
 
 [workspace]

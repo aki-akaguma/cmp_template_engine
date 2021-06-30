@@ -40,6 +40,8 @@ fn process_te_tinytempl_teams_so<'a>(
 mod create_data;
 
 fn criterion_benchmark(c: &mut Criterion) {
+    memx_cdy::memx_init();
+    //
     let (a_teams_so, res_s) = create_data::create_data_teams_so();
     //
     //eprintln!("{}", res_s.len());

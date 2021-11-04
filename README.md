@@ -5,6 +5,41 @@ research: compare template-engine for non-html
 
 The sailfish is the best performance.
 
+- rustc 1.56.1 (59eed8a2a 2021-11-01)
+
+|         `name`          |   `bench`   |   `:musl`   |
+|:------------------------|------------:|------------:|
+| sailf_teams             |    0.191 uc |    0.446 uc |
+| sailf_buf_teams         |    0.243 uc |    0.780 uc |
+| sailf_buf_fmt_teams     |    0.636 uc |    1.682 uc |
+| std_fmt_write_teams     |    0.656 uc |    1.511 uc |
+| std_io_write_teams      |    0.697 uc |    1.585 uc |
+| std_format_teams        |    1.096 uc |    2.584 uc |
+| askama_teams            |    1.481 uc |    2.375 uc |
+| tinytempl_teams         |    6.229 uc |   14.323 uc |
+
+|         `name`          |   `bench`   |   `:musl`   |
+|:------------------------|------------:|------------:|
+| sailf_bigtable          |   16.312 uc |   15.279 uc |
+| sailf_buf_bigtable      |   25.442 uc |   65.468 uc |
+| std_fmt_write_bigtable  |  145.940 uc |  258.190 uc |
+| sailf_buf_fmt_bigtable  |  151.220 uc |  271.180 uc |
+| std_io_write_bigtable   |  161.530 uc |  274.870 uc |
+| askama_bigtable         |  225.530 uc |  339.820 uc |
+| std_format_bigtable     |  260.350 uc |  506.360 uc |
+| tinytempl_bigtable      |  297.220 uc |  408.320 uc |
+
+|         `name`          |   `bench`   |   `:musl`   |
+|:------------------------|------------:|------------:|
+| sailf_teams_so          |    0.078 uc |    0.428 uc |
+| sailf_buf_teams_so      |    0.187 uc |    0.425 uc |
+| std_fmt_write_teams_so  |    0.306 uc |    0.862 uc |
+| std_io_write_teams_so   |    0.336 uc |    0.899 uc |
+| sailf_buf_fmt_teams_so  |    0.339 uc |    0.903 uc |
+| askama_teams_so         |    0.582 uc |    0.977 uc |
+| std_format_teams_so     |    0.751 uc |    2.259 uc |
+| tinytempl_teams_so      |    2.172 uc |    6.526 uc |
+
 - rustc 1.53.0 (53cb7b09b 2021-06-17)
 
 |         `name`          |   `bench`   |   `:musl`   |

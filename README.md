@@ -1,4 +1,8 @@
 # cmp_template_engine
+
+![Rust Version][rustc-image]
+![Apache2/MIT licensed][license-image]
+
 research: compare template-engine for non-html
 
 ## The Benchmark Results
@@ -109,3 +113,8 @@ The sailfish is the best performance.
 | askama_teams_so         |    0.620 uc |    0.996 uc |
 | std_format_teams_so     |    0.740 uc |    2.153 uc |
 | tinytempl_teams_so      |    2.084 uc |    6.960 uc |
+
+[//]: # (badges)
+
+[rustc-image]: https://img.shields.io/badge/rustc-1.56+-blue.svg
+[license-image]: https://img.shields.io/badge/license-Apache2.0/MIT-blue.svg
